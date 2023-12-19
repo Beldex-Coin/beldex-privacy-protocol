@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.6.0;
+pragma solidity ^0.7.6;
 pragma experimental ABIEncoderV2;
 
 import "./Utils.sol";
@@ -36,7 +36,7 @@ contract BeldexRedeem {
         BeldexIP.Proof ip_proof;
     }
 
-    constructor(address _ip) public {
+    constructor(address _ip)  {
         ip = BeldexIP(_ip);
     }
 

@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.6.0;
+pragma solidity ^0.7.6;
 pragma experimental ABIEncoderV2;
 
 import "openzeppelin-solidity/contracts/token/ERC20/ERC20.sol";
@@ -7,11 +7,11 @@ import "./Utils.sol";
 import "./BeldexBase.sol";
 
 
-contract RazeERC20 is RazeBase {
+contract BeldexERC20 is BeldexBase {
 
     ERC20 token;
 
-    constructor(address _token, address _transfer, address _redeem, uint256 _unit) RazeBase(_transfer, _redeem, _unit) public {
+    constructor(address _token, address _transfer, address _redeem, uint256 _unit) BeldexBase(_transfer, _redeem, _unit) public {
         token = ERC20(_token);
     }
 
@@ -21,7 +21,7 @@ contract RazeERC20 is RazeBase {
         uint256 nativeAmount = toNativeAmount(unitAmount);
 
         // In order for the following to succeed, `msg.sender` have to first approve `this` to spend the nativeAmount.
-        require(token.transferFrom(msg.sender, address(this), nativeAmount), "[Raze mint] Native 'transferFrom' failed.");
+        require(token.transferFrom(msg.sender, address(this), nativeAmount), "[Beldex mint] Native 'transferFrom' failed.");
     }
     function redeem(Utils.G1Point memory y, uint256 unitAmount, Utils.G1Point memory u, bytes memory proof, bytes memory encGuess) public {
         uint256 nativeAmount = toNativeAmount(unitAmount);

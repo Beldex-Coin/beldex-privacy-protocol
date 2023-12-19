@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.6.0;
+pragma solidity ^0.7.6;
 pragma experimental ABIEncoderV2;
 
 import "./Utils.sol";
@@ -57,8 +57,8 @@ contract BeldexBase {
     event TransferOccurred(Utils.G1Point[] parties); 
     event LogUint256(string label, uint256 indexed value);
 
-    constructor(address _transfer,address _redeem, uint256 _unit) public {
-        beldex_agency = msg.sender;
+    constructor(address _transfer,address _redeem, uint256 _unit)  {
+        beldex_agency = payable(msg.sender);
         beldex_transfer = BeldexTransfer(_transfer);
         beldex_redeem = BeldexRedeem(_redeem);
         unit = _unit;
@@ -271,7 +271,7 @@ contract BeldexBase {
             beldex_agency.transfer(fee);
             transfer_fee_log = transfer_fee_log + fee;
         }
-        msg.sender.transfer(msg.value - fee);
+        beldex_agency.transfer(msg.value - fee);
 
         emit TransferOccurred(y);
     }
